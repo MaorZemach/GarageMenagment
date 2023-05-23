@@ -56,10 +56,23 @@ namespace Ex03.GarageLogic
 
         public override void RenewAmountOfEnergy(eFuelType i_FuelType, float i_FuelToAddInLiters)
         {
-            // Implement the renewal logic for FuelSource
-            Console.WriteLine("Renewing fuel energy.");
+           if(i_FuelType==this.FuelType)
+           {
+                if((m_FuelLeftInLiters + i_FuelToAddInLiters)>MaxFuelCapacity)
+                {
+                    //throw ValueOutOfRangeException("The amount of liters after adding the amount of fuel you wanted is higher from the maximum", 0, r_MaxFuelCapacity);
+                }
+                else
+                {
+                    m_FuelLeftInLiters += i_FuelToAddInLiters;
+                }
+           }
 
-            //input tests and exception throws
+           else
+            {
+                //throw exeption "Fuel type not the same"
+            }
+
         }
 
         //CHECK ABOUT THE EXCEPTIONS!

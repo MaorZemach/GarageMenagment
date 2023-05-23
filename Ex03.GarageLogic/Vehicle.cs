@@ -10,13 +10,16 @@ namespace Ex03.GarageLogic
   {
         protected readonly string r_ModelName;
         protected readonly string r_LicensingNumber;
+        protected EnergySource m_EnergySource;
         protected FuelSource m_FuelSource;
         protected ElectricSource m_ElectricSource;
         private eVehicleStatusInGarage m_VehicleStatus;
         private List<Wheel> m_Wheels;
         private readonly int r_NumOfWheels;
         private readonly  float r_MaxEnergyCapacity;
-              
+        private string m_OwnerName;
+        private string m_OwnerPhone;
+
         public Vehicle(string i_ModelName, string i_LicensingNumber, int i_NumOfWheels)
         {
             r_ModelName = i_ModelName;
@@ -24,6 +27,7 @@ namespace Ex03.GarageLogic
             m_Wheels = new List<Wheel>();
             r_NumOfWheels = i_NumOfWheels;
             m_VehicleStatus = eVehicleStatusInGarage.InRepair;
+            //m_EnergySource = i_EnergySource;
             m_FuelSource = null;
             m_ElectricSource = null;
         }
@@ -79,6 +83,34 @@ namespace Ex03.GarageLogic
             }
         }
 
+        public EnergySource VehicleEnergySource
+        {
+            get
+            {
+                return m_EnergySource;
+            }
+            set
+            {
+                m_EnergySource = value;
+            }
+        }
+
+        public string OwnerName
+        {
+            get
+            {
+                return m_OwnerName;
+            }
+        }
+
+        public string OwnerPhone
+        {
+            get
+            {
+                return m_OwnerPhone;
+            }
+        }
+
         public void ProduceAndAddWheel(string i_WheelManufactureName, float i_MaxAirPressure, float i_CurrentAirPressure)
         {
             for(int i = 0;i < r_NumOfWheels;i++)
@@ -92,12 +124,31 @@ namespace Ex03.GarageLogic
             return new Wheel(i_ManufacturerName, i_CurrentAirPressure, i_MaxAirPressure);
         }
 
-        public void InflateWheels(float i_AirPressureToAdd)
+        public void InflateWheels(float i_AirToAdd)
         {
             foreach(Wheel wheel in m_Wheels)
             {
-                wheel.InflateWheelAirPressure(i_AirPressureToAdd);
+                wheel.InflateWheelAirPressure(i_AirToAdd);
             }
+        }
+
+        public void inflateWheelsAirPressureToMax()
+        {
+            foreach(Wheel wheel in m_Wheels)
+            {
+                wheel.InflateWheelToMax();
+            }
+        }
+
+        public bool CheckEnergySourceIsFuel()
+        {
+            bool v_IsFuel = false;
+            if(VehicleEnergySource==null)
+            {
+                v_IsFuel = true;
+            }
+
+            return v_IsFuel;
         }
 
         public abstract void CreateEnergySource(eEnergySourceType i_EnergySourceType, float i_CurrentEnergyInVehicle); 

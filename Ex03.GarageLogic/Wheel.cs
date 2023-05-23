@@ -47,14 +47,18 @@ namespace Ex03.GarageLogic
             }
         }
 
-        public void InflateWheelAirPressure(float i_AirPressureToAdd)
+        public void InflateWheelAirPressure(float i_AirToAdd)
         {
             //check if not past the maximum
-            if((m_CurrentAirPressure+i_AirPressureToAdd) <= Car.k_WheelMaxAirPressure)
+            if((m_CurrentAirPressure+i_AirToAdd) <= Car.k_WheelMaxAirPressure)
             {
-                m_CurrentAirPressure += i_AirPressureToAdd;
+                m_CurrentAirPressure += i_AirToAdd;
             }
             //else throw exepction.
+        }
+        public void InflateWheelToMax()
+        {
+            m_CurrentAirPressure = r_MaxAirPressure;
         }
     }
 }

@@ -34,6 +34,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include=".Program.cs" />
+    <Compile Include="eMenuOption.cs" />
+    <Compile Include="UIInputsOutputsMessages.cs" />
     <Compile Include="UIManagment.cs" />
     <None Include="App.config" />
   </ItemGroup>

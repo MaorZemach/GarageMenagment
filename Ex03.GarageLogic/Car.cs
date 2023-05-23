@@ -12,7 +12,7 @@ namespace Ex03.GarageLogic
         internal const float k_WheelMaxAirPressure = 33f;
         internal const float k_FuelTankCapacityInLiters = 46f;
         internal const float k_MaxBatteryTimeInHours = 5.2f;
-        private readonly eFuelType r_FuelType;
+        internal readonly eFuelType r_FuelType;
         private eCarColors m_CarColor;
         private eNumberOfDoors m_NumberOfDoors;
 

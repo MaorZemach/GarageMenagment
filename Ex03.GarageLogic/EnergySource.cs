@@ -19,7 +19,7 @@ namespace Ex03.GarageLogic
 
         protected EnergySource(float i_MaxAmountOfEnergySource, float i_CapacityLeftInEnergySource)
         {
-            m_AmountOfEnergyLeftInPercentage = (i_CapacityLeftInEnergySource / i_MaxAmountOfEnergySource) * 100;
+            setAmountOfEnergyPrecentage(i_MaxAmountOfEnergySource, i_CapacityLeftInEnergySource);
         }
 
         public float AmountOfEnergyLeftInPercentage
@@ -33,6 +33,11 @@ namespace Ex03.GarageLogic
             {
                 m_AmountOfEnergyLeftInPercentage = value;
             }
+        }
+
+        public void setAmountOfEnergyPrecentage(float i_MaxAmountOfEnergySource, float i_CapacityLeftInEnergySource)
+        {
+            m_AmountOfEnergyLeftInPercentage = (i_CapacityLeftInEnergySource / i_MaxAmountOfEnergySource) * 100;
         }
 
         /* public void ChargeOrRefuelVehicle(float i_AmountToCharge)

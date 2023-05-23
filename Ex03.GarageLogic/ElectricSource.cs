@@ -40,9 +40,15 @@ namespace Ex03.GarageLogic
 
         public override void RenewAmountOfEnergy(float i_TimeToAddInHours)
         {
-            // Implement the renewal logic for FuelSource
-            Console.WriteLine("Renewing Electric energy.");
+         if((m_TimeLeftInHours+ i_TimeToAddInHours)>r_MaxEletricCapacity)
+         {
+                //throw exeption value out of range "the time is higher than the maximum;
+         }
 
+         else
+         {
+                m_TimeLeftInHours += i_TimeToAddInHours;
+         }
             //input tests and exception throws
         }
         //CHECK ABOUT THE EXCEPTIONS!

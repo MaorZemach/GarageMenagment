@@ -12,7 +12,7 @@ namespace Ex03.GarageLogic
         private const float k_WheelMaxAirPressure = 31f;
         private const float k_FuelTankCapacityInLiters = 6.4f;
         private const float k_MaxBatteryTimeInHours = 2.6f;
-        private readonly eFuelType r_FuelType;
+       // private readonly eFuelType r_FuelType;
         private eLicenseType m_LicenseType;
         private int m_EngineCapacity;
 
@@ -21,7 +21,7 @@ namespace Ex03.GarageLogic
         {
             m_EngineCapacity = i_EngineCapacity;
             m_LicenseType = i_LicenseType;
-            r_FuelType = eFuelType.Octan98;
+            //r_FuelType = eFuelType.Octan98;
         }
 
         public int EngineCapacity
