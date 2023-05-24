@@ -17,7 +17,7 @@ namespace Ex03.GarageLogic
         private eNumberOfDoors m_NumberOfDoors;
 
         public Car(string i_ModelName, string i_LicensingNumber, eCarColors i_CarColor, eNumberOfDoors i_NumOfDoors)
-            : base(i_ModelName, i_LicensingNumber, k_WheelsNum)
+            : base(i_ModelName, i_LicensingNumber, k_WheelsNum, k_WheelMaxAirPressure)
         {
             m_CarColor = i_CarColor;
             m_NumberOfDoors = i_NumOfDoors;

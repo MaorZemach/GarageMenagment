@@ -16,16 +16,18 @@ namespace Ex03.GarageLogic
         private eVehicleStatusInGarage m_VehicleStatus;
         private List<Wheel> m_Wheels;
         private readonly int r_NumOfWheels;
-        private readonly  float r_MaxEnergyCapacity;
+        private float m_MaxWheelAirPressure;
+        private readonly float r_MaxEnergyCapacity;
         private string m_OwnerName;
         private string m_OwnerPhone;
 
-        public Vehicle(string i_ModelName, string i_LicensingNumber, int i_NumOfWheels)
+        public Vehicle(string i_ModelName, string i_LicensingNumber, int i_NumOfWheels, float i_MaxWheelAirPressure)
         {
             r_ModelName = i_ModelName;
             r_LicensingNumber = i_LicensingNumber;
             m_Wheels = new List<Wheel>();
             r_NumOfWheels = i_NumOfWheels;
+            m_MaxWheelAirPressure = i_MaxWheelAirPressure;
             m_VehicleStatus = eVehicleStatusInGarage.InRepair;
             //m_EnergySource = i_EnergySource;
             m_FuelSource = null;
@@ -53,6 +55,14 @@ namespace Ex03.GarageLogic
             get
             {
                 return r_NumOfWheels;
+            }
+        }
+
+        public float MaxWheelAirPressure
+        {
+            get
+            {
+                return m_MaxWheelAirPressure;
             }
         }
 
@@ -109,6 +119,17 @@ namespace Ex03.GarageLogic
             {
                 return m_OwnerPhone;
             }
+            set
+            {
+                m_OwnerPhone = value;
+            }
+
+        }
+
+        public void SetOwnerDetails(string i_OwnerName, string i_OwnerPhone)
+        {
+            m_OwnerName = i_OwnerName;
+            m_OwnerPhone = i_OwnerPhone;
         }
 
         public void ProduceAndAddWheel(string i_WheelManufactureName, float i_MaxAirPressure, float i_CurrentAirPressure)

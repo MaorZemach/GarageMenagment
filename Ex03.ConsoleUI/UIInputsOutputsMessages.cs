@@ -7,9 +7,11 @@ using Ex03.GarageLogic;
 
 namespace Ex03.ConsoleUI
 {
-
+    
     class UIInputsOutputsMessages
     {
+        private const int k_MinValue = 0;
+
         //print menu
         public const string k_SelectOptionFromMenuMsg = "Please select one of the options behind(a number between 1 to 8):";
         public const string k_TheVehicleIsAlreadyInTheGarageMsg = "This vehicle is already exists in the garage.";
@@ -217,6 +219,35 @@ Please select one of the options behind (a number between 1 to 8):
             }
 
             return numOfHoursToCharge;
+        }
+
+        public static string GetWheelManufacture()
+        {
+            return getInputFromUser(string.Format("{0}Please insert your wheel manufacture: ", Environment.NewLine));
+        }
+
+        public static float GetCurrentWheelAirPressure(float i_MaxWheelAirPressure)
+        {
+            float currenttAirPressure;
+            string currenttAirPressureInput = getInputFromUser(string.Format("{0}Please insert current wheel Air pressure: ", Environment.NewLine));
+            bool isValidAirPressure = float.TryParse(currenttAirPressureInput, out currenttAirPressure);
+
+            if (isValidAirPressure == false)
+            {
+                throw new FormatException("Invalid input!");
+            }
+            else if (isInputInRange(k_MinValue, i_MaxWheelAirPressure, currenttAirPressure) == false)
+            {
+                throw new ValueOutOfRangeException("Value out of range", k_MinValue, i_MaxWheelAirPressure);
+            }
+
+            return currenttAirPressure;
+        }
+
+        public static void GetOwnerDetails(out string o_OwnerName, out string o_OwnerPhoneNumber)
+        {
+            o_OwnerName = getInputFromUser(string.Format("{0}Please insert owner name: ", Environment.NewLine));
+            o_OwnerPhoneNumber = getInputFromUser(string.Format("{0}Please insert owner phone Number: ", Environment.NewLine));
         }
     }
 }

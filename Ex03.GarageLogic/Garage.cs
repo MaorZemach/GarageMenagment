@@ -55,7 +55,7 @@ namespace Ex03.GarageLogic
             Vehicle vehicle = GetVehicleInGarage(i_VehicleLicenseNumber);
 
             vehicle.inflateWheelsAirPressureToMax();
-            vehicle.eF
+            
         }
 
         public bool IsVehicleInGarageListInChosenStateIsEmpty(Enum i_VehicleStatusInGarage)
@@ -77,7 +77,7 @@ namespace Ex03.GarageLogic
         //from maor
         public static Vehicle ProduceCar(eEnergySourceType i_EnergySourceType, float i_CurrentEnergy, string i_ModelName, string i_LicenseName, eNumberOfDoors i_NumOfDoors, eCarColors i_CarColor)
         {
-            Car newCar = new Car(i_ModelName, i_LicenseName, eCarColors.Black, eNumberOfDoors.FiveDoors);
+            Car newCar = new Car(i_ModelName, i_LicenseName, i_CarColor, i_NumOfDoors);
             newCar.CreateEnergySource(i_EnergySourceType, i_CurrentEnergy);
 
             return newCar;
@@ -97,6 +97,46 @@ namespace Ex03.GarageLogic
             newTruck.CreateEnergySource(i_EnergySourceType, i_CurrentEnergy);
 
             return newTruck;
+        }
+
+        public static Vehicle CreateNewVehicle(eVehicleType i_VehicleType, eEnergySourceType i_EnergySource, string i_ModelName, string i_LicenseNumber)
+        {
+            Vehicle newVehicle;
+            EnergySource newEnergySource;
+
+            if (i_VehicleType == eVehicleType.Motorcycle)
+            {
+                if (i_EnergySource == eEnergySourceType.Fuel)
+                {
+                    newEnergySource = new FuelSource(eFuelType.Octan98, Motorcycle.k_FuelTankCapacity);
+                }
+                else
+                {
+                    newEnergySource = new ElectricSource(Motorcycle.k_MaxBatteryTimeInHours);
+                }
+
+                newVehicle = new Motorcycle(i_ModelName, i_LicenseNumber, newEnergySource);
+            }
+            else if (i_VehicleType == eVehicleType.Car)
+            {
+                if (i_EnergySource == eEnergySourceType.Fuel)
+                {
+                    newEnergySource = new FuelSource(eFuelType.Octan95, Car.k_FuelTankCapacity);
+                }
+                else
+                {
+                    newEnergySource = new ElectricSource(Car.k_MaxBatteryTimeInHours);
+                }
+
+                newVehicle = new Car(i_ModelName, i_LicenseNumber, newEnergySource);
+            }
+            else
+            {
+                newEnergySource = new FuelSource(eFuelType.Soler, Truck.k_FuelTankCapacity);
+                newVehicle = new Truck(i_ModelName, i_LicenseNumber, newEnergySource);
+            }
+
+            return newVehicle;
         }
     }
 }

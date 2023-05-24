@@ -9,7 +9,7 @@ namespace Ex03.GarageLogic
     class Motorcycle : Vehicle
     {
         private const int k_WheelsNum = 2;
-        private const float k_WheelMaxAirPressure = 31f;
+        internal const float k_WheelMaxAirPressure = 31f;
         private const float k_FuelTankCapacityInLiters = 6.4f;
         private const float k_MaxBatteryTimeInHours = 2.6f;
        // private readonly eFuelType r_FuelType;
@@ -17,7 +17,7 @@ namespace Ex03.GarageLogic
         private int m_EngineCapacity;
 
         public Motorcycle(string i_ModelName, string i_LicensingNumber, int i_EngineCapacity, eLicenseType i_LicenseType)
-            : base(i_ModelName, i_LicensingNumber, k_WheelsNum)
+            : base(i_ModelName, i_LicensingNumber, k_WheelsNum, k_WheelMaxAirPressure)
         {
             m_EngineCapacity = i_EngineCapacity;
             m_LicenseType = i_LicenseType;
@@ -52,7 +52,7 @@ namespace Ex03.GarageLogic
         {
             if (i_EnergySourceType == eEnergySourceType.Fuel)
             {
-                m_FuelSource = new FuelSource(r_FuelType, k_FuelTankCapacityInLiters, i_CurrentEnergyInVehicle);
+                m_FuelSource = new FuelSource(eFuelType.Octan98, k_FuelTankCapacityInLiters, i_CurrentEnergyInVehicle);
             }
 
             else
