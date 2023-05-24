@@ -132,6 +132,8 @@ namespace Ex03.GarageLogic
             m_OwnerPhone = i_OwnerPhone;
         }
 
+      
+
         public void ProduceAndAddWheel(string i_WheelManufactureName, float i_MaxAirPressure, float i_CurrentAirPressure)
         {
             for(int i = 0;i < r_NumOfWheels;i++)
@@ -170,6 +172,19 @@ namespace Ex03.GarageLogic
             }
 
             return v_IsFuel;
+        }
+
+       public void setCurrentAmountOfEnergySource(float i_NewAmountOfEnergySource)
+        {
+            bool v_IsFuel = CheckEnergySourceIsFuel();
+            if(v_IsFuel==true)
+            {
+                this.VehicleFuelSource.FuelLeftInLiters = i_NewAmountOfEnergySource;
+            }
+            else
+            {
+                VehicleElectricSource.TimeLeftInHours = i_NewAmountOfEnergySource;
+            }
         }
 
         public abstract void CreateEnergySource(eEnergySourceType i_EnergySourceType, float i_CurrentEnergyInVehicle); 

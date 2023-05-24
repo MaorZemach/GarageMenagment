@@ -94,7 +94,7 @@ Please select one of the options behind (a number between 1 to 8):
         {
             string userInput;
 
-            Console.Write(i_RequestMsg);
+            Console.Write(i_RequestMsg);    
             userInput = Console.ReadLine();
 
             return userInput;

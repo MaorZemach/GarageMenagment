@@ -9,6 +9,8 @@ namespace Ex03.GarageLogic
     public abstract class EnergySource
     {
         protected float m_AmountOfEnergyLeftInPercentage; // protected?
+        protected readonly float m_MaxAmountOfEnergySource;
+
         public abstract void RenewAmountOfEnergy();
         public abstract void RenewAmountOfEnergy(eFuelType i_FuelType, float i_FuelToAddInLiters);
         public abstract void RenewAmountOfEnergy(float i_TimeToAddInHours);
@@ -19,6 +21,7 @@ namespace Ex03.GarageLogic
 
         protected EnergySource(float i_MaxAmountOfEnergySource, float i_CapacityLeftInEnergySource)
         {
+            m_MaxAmountOfEnergySource = i_MaxAmountOfEnergySource;
             setAmountOfEnergyPrecentage(i_MaxAmountOfEnergySource, i_CapacityLeftInEnergySource);
         }
 
@@ -32,6 +35,14 @@ namespace Ex03.GarageLogic
             set
             {
                 m_AmountOfEnergyLeftInPercentage = value;
+            }
+        }
+
+        public float MaxAmountOfEnergySource
+        {
+            get
+            {
+                return m_MaxAmountOfEnergySource;
             }
         }
 

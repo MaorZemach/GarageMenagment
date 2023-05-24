@@ -93,13 +93,32 @@ namespace Ex03.GarageLogic
 
         public static Vehicle ProduceTruck(eEnergySourceType i_EnergySourceType, float i_CurrentEnergy, string i_ModelName, string i_LicenseName, bool I_IsTransoprtHazardousMaterials, float CargoCapacity)
         {
+           
             Truck newTruck = new Truck(i_ModelName, i_LicenseName, I_IsTransoprtHazardousMaterials, CargoCapacity);
-            newTruck.CreateEnergySource(i_EnergySourceType, i_CurrentEnergy);
+            bool v_isValid = false;
+
+            while(v_isValid==false)
+            try
+            {
+                newTruck.CreateEnergySource(i_EnergySourceType, i_CurrentEnergy);
+                newTruck.VehicleEnergySource.setAmountOfEnergyPrecentage(newTruck.VehicleFuelSource.MaxFuelCapacity, i_CurrentEnergy);
+                v_isValid = true;    
+            }
+            catch (FormatException formatException)
+            {
+                Console.WriteLine(formatException.Message);
+                v_isValid = false;
+            }
+            catch (ValueOutOfRangeException valueOutOfRangeException)
+            {
+                Console.WriteLine(valueOutOfRangeException.Message);
+                 v_isValid = false;
+            }
 
             return newTruck;
         }
 
-        public static Vehicle CreateNewVehicle(eVehicleType i_VehicleType, eEnergySourceType i_EnergySource, string i_ModelName, string i_LicenseNumber)
+        /*public static Vehicle CreateNewVehicle(eVehicleType i_VehicleType, eEnergySourceType i_EnergySource, string i_ModelName, string i_LicenseNumber)
         {
             Vehicle newVehicle;
             EnergySource newEnergySource;
@@ -137,6 +156,6 @@ namespace Ex03.GarageLogic
             }
 
             return newVehicle;
-        }
+        }*/
     }
 }
