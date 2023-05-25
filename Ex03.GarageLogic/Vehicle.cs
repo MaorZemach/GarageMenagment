@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace Ex03.GarageLogic
 {
-  public abstract class Vehicle
-  {
+    public abstract class Vehicle
+    {
         protected readonly string r_ModelName;
         protected readonly string r_LicensingNumber;
         protected EnergySource m_EnergySource;
-        protected FuelSource m_FuelSource;
-        protected ElectricSource m_ElectricSource;
+       // protected FuelSource m_FuelSource;
+        //protected ElectricSource m_ElectricSource;
         private eVehicleStatusInGarage m_VehicleStatus;
         private List<Wheel> m_Wheels;
         private readonly int r_NumOfWheels;
@@ -30,8 +30,16 @@ namespace Ex03.GarageLogic
             m_MaxWheelAirPressure = i_MaxWheelAirPressure;
             m_VehicleStatus = eVehicleStatusInGarage.InRepair;
             //m_EnergySource = i_EnergySource;
-            m_FuelSource = null;
-            m_ElectricSource = null;
+            //m_FuelSource = null;
+            //m_ElectricSource = null;
+        }
+
+        public List<Wheel> Wheels
+        {
+            get
+            {
+                return m_Wheels;
+            }
         }
 
         public string ModelName
@@ -50,7 +58,7 @@ namespace Ex03.GarageLogic
             }
         }
 
-        public  int NumOfWheels
+        public int NumOfWheels
         {
             get
             {
@@ -78,7 +86,7 @@ namespace Ex03.GarageLogic
             }
         }
 
-        public FuelSource VehicleFuelSource
+        /*public FuelSource VehicleFuelSource
         {
             get
             {
@@ -91,7 +99,7 @@ namespace Ex03.GarageLogic
             {
                 return m_ElectricSource;
             }
-        }
+        }*/
 
         public EnergySource VehicleEnergySource
         {
@@ -132,11 +140,11 @@ namespace Ex03.GarageLogic
             m_OwnerPhone = i_OwnerPhone;
         }
 
-      
+
 
         public void ProduceAndAddWheel(string i_WheelManufactureName, float i_MaxAirPressure, float i_CurrentAirPressure)
         {
-            for(int i = 0;i < r_NumOfWheels;i++)
+            for (int i = 0; i < r_NumOfWheels; i++)
             {
                 m_Wheels.Add(CreateNewWheel(i_WheelManufactureName, i_MaxAirPressure, i_CurrentAirPressure));
             }
@@ -149,7 +157,7 @@ namespace Ex03.GarageLogic
 
         public void InflateWheels(float i_AirToAdd)
         {
-            foreach(Wheel wheel in m_Wheels)
+            foreach (Wheel wheel in m_Wheels)
             {
                 wheel.InflateWheelAirPressure(i_AirToAdd);
             }
@@ -157,7 +165,7 @@ namespace Ex03.GarageLogic
 
         public void inflateWheelsAirPressureToMax()
         {
-            foreach(Wheel wheel in m_Wheels)
+            foreach (Wheel wheel in m_Wheels)
             {
                 wheel.InflateWheelToMax();
             }
@@ -166,7 +174,7 @@ namespace Ex03.GarageLogic
         public bool CheckEnergySourceIsFuel()
         {
             bool v_IsFuel = false;
-            if(VehicleEnergySource==null)
+            if (VehicleEnergySource == null)
             {
                 v_IsFuel = true;
             }
@@ -174,19 +182,36 @@ namespace Ex03.GarageLogic
             return v_IsFuel;
         }
 
-       public void setCurrentAmountOfEnergySource(float i_NewAmountOfEnergySource)
+        public void setCurrentAmountOfEnergySource(float i_NewAmountOfEnergySource)
         {
-            bool v_IsFuel = CheckEnergySourceIsFuel();
-            if(v_IsFuel==true)
-            {
-                this.VehicleFuelSource.FuelLeftInLiters = i_NewAmountOfEnergySource;
-            }
-            else
-            {
-                VehicleElectricSource.TimeLeftInHours = i_NewAmountOfEnergySource;
-            }
+            VehicleEnergySource.CurrentAmountOfEnergySource = i_NewAmountOfEnergySource;
         }
 
-        public abstract void CreateEnergySource(eEnergySourceType i_EnergySourceType, float i_CurrentEnergyInVehicle); 
+        public abstract void CreateEnergySource(eEnergySourceType i_EnergySourceType, float i_CurrentEnergyInVehicle);
+
+        public void GetEnergyDetails(out string o_EnergyType, out float o_EnergyCurrentAmount, out float o_EnergyMaxAmount, out float o_EnergyCurrentAmountInPercentage)
+        {
+            o_EnergyType = m_EnergySource.GetType().Name;
+            o_EnergyCurrentAmount = m_EnergySource.CurrentAmountOfEnergySource;
+            o_EnergyMaxAmount = m_EnergySource.MaxAmountOfEnergySource;
+            o_EnergyCurrentAmountInPercentage = VehicleEnergySource.EnergyLeftInPercentage;
+        }
+
+      /*  public override string ToString()
+        {
+            string wheelString = "";
+
+            foreach (Wheel currentWheel in m_Wheels)
+            {
+                wheelString = wheelString + currentWheel.ToString();
+            }
+            return string.Format(@"
+2) License number: {0}
+3) Model name: {1}
+4) Wheels details:
+************ {2}
+************
+", r_LicensingNumber, r_ModelName, wheelString);
+        }*/
     }
 }

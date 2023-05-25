@@ -7,7 +7,7 @@ using Ex03.GarageLogic;
 
 namespace Ex03.ConsoleUI
 {
-    
+
     class UIInputsOutputsMessages
     {
         private const int k_MinValue = 0;
@@ -38,6 +38,11 @@ Please select one of the options behind (a number between 1 to 8):
 7. Display vehicle details by license number.
 8. Exit.
 ------------------------------------------------------------------------"));
+        }
+        public static void PressAnyKeyToContinue()
+        {
+            Console.WriteLine("{0}Press any key to continue...", Environment.NewLine);
+            Console.ReadKey();
         }
 
         public static int GetInputChoiceFromUser(int i_MinInputRangeValue, int i_MaxInputRangeValue)
@@ -94,7 +99,7 @@ Please select one of the options behind (a number between 1 to 8):
         {
             string userInput;
 
-            Console.Write(i_RequestMsg);    
+            Console.Write(i_RequestMsg);
             userInput = Console.ReadLine();
 
             return userInput;
@@ -135,8 +140,6 @@ Please select one of the options behind (a number between 1 to 8):
             return userInput;
         }
 
-      
-
         public static Enum GetEnumOptionFromUser(Type i_EnumType)
         {
             int userChoice = 0;
@@ -174,33 +177,45 @@ Please select one of the options behind (a number between 1 to 8):
             return (Enum)Enum.GetValues(i_EnumType).GetValue(userChoice);
         }
 
-      
-
         public static void PrintVehicleIsNotInGarage()
         {
-            Console.WriteLine("The vehicle is not in the garage");
+            Console.WriteLine("The vehicle is not in the garage.");
         }
 
         public static void PrintRequestCompleted()
         {
-            Console.WriteLine("Your request was completed successfully");
+            Console.WriteLine("Your request was completed successfully.");
         }
 
         public static void PrintUnMatchEnergySourceForVehicle()
         {
-            Console.WriteLine("The energy source you entered is not match to the vehicle energy source");
+            Console.WriteLine("The energy source you entered is not match to the vehicle energy source.");
+        }
+
+        public static void PrintThereIsNoVehiclesInThisStatus()
+        {
+            Console.WriteLine(string.Format("There is no vehicles in this status.{0}", Environment.NewLine));
+        }
+
+        public static void PrintThereIsNoVehiclesInTheGarage()
+        {
+            Console.WriteLine(string.Format("There is no vehicles in the garage.{0}", Environment.NewLine));
+        }
+        public static void PrintVehicleLicenseNumber(string i_LicenseNumber)
+        {
+            Console.WriteLine(string.Format(@"Vehicle license number: {0} .", i_LicenseNumber));
         }
 
         public static void PrintUnMatchFuelForVehicle()
         {
-            Console.WriteLine("The fuel type you entered is not matched to the fuel type in the vehicle");
+            Console.WriteLine("The fuel type you entered is not matched to the fuel type in the vehicle.");
         }
         public static float GetAmountOfFuelToAdd()
         {
             float amountOfFuelToAdd = 0;
-            string amountOfFuelFromUser = getInputFromUser(string.Format("{0}Please insert the amount of fueal you want to add in Liters: ", Environment.NewLine));
+            string amountOfFuelFromUser = getInputFromUser(string.Format("{0}Please insert the amount of fuel you want to add in Liters: ", Environment.NewLine));
 
-            if(float.TryParse(amountOfFuelFromUser, out amountOfFuelToAdd)== false)
+            if (float.TryParse(amountOfFuelFromUser, out amountOfFuelToAdd) == false)
             {
                 throw new FormatException("Invalid fuel amount format!");
             }
@@ -213,7 +228,7 @@ Please select one of the options behind (a number between 1 to 8):
             float numOfHoursToCharge = 0;
             string numOfHoursToChargeInput = getInputFromUser(string.Format("{0}Please insert number of hours to charge in the vehicle: ", Environment.NewLine));
 
-            if(float.TryParse(numOfHoursToChargeInput, out numOfHoursToCharge) ==false)
+            if (float.TryParse(numOfHoursToChargeInput, out numOfHoursToCharge) == false)
             {
                 throw new FormatException("Invalid minuts to charge format!");
             }
@@ -221,9 +236,9 @@ Please select one of the options behind (a number between 1 to 8):
             return numOfHoursToCharge;
         }
 
-        public static string GetWheelManufacture()
+        public static string GetWheelManufacturer()
         {
-            return getInputFromUser(string.Format("{0}Please insert your wheel manufacture: ", Environment.NewLine));
+            return getInputFromUser(string.Format("{0}Please insert your wheel manufacturer: ", Environment.NewLine));
         }
 
         public static float GetCurrentWheelAirPressure(float i_MaxWheelAirPressure)
@@ -248,6 +263,78 @@ Please select one of the options behind (a number between 1 to 8):
         {
             o_OwnerName = getInputFromUser(string.Format("{0}Please insert owner name: ", Environment.NewLine));
             o_OwnerPhoneNumber = getInputFromUser(string.Format("{0}Please insert owner phone Number: ", Environment.NewLine));
+        }
+
+        public static string GetUserInputStatusOptionChoiceForDisplayingListOfVehiclesLicenseNumbers()
+        {
+            string inputOptionFromUser = getInputFromUser(string.Format("{0}Please choose one of the following options to" +
+                " display the list of the vehicles license numbers in the garage:" +
+                "{1}'1' for vehicles in repair." +
+                "{2}'2' for repaired vehicles." +
+                "{3}'3' for paid vehicles." +
+                "{4}'4' for list of vehicles in all statuses. "
+                , Environment.NewLine, Environment.NewLine, Environment.NewLine, Environment.NewLine, Environment.NewLine));
+
+            return inputOptionFromUser;
+        }
+
+        public static void DisplayVehicleDetails(Vehicle i_Vehicle)
+        {
+            Console.WriteLine(string.Format(
+@"--------------------------------------------------------
+Details Report For Vehicle License number: {0}
+Model name: {1}
+Owner name: {2}
+Owner phone number: {3}
+Status: {4}
+",
+              i_Vehicle.LicenseNumber,
+              i_Vehicle.ModelName,
+              i_Vehicle.OwnerName,
+              i_Vehicle.OwnerPhone,
+              i_Vehicle.VehicleStatusInGarage));
+
+            int wheelNumber = 1;
+
+            foreach (Wheel wheel in i_Vehicle.Wheels)
+            {
+                Console.WriteLine(string.Format(
+@"Wheel number: {0}
+Current air pressure: {1}
+Maximum wheel air pressure: {2}
+Wheel manufacturer name: {3}
+",
+                       wheelNumber,
+                       wheel.CurrentAirPressure,
+                       wheel.MaxAirPressure,
+                       wheel.ManufacturerName));
+                wheelNumber++;
+            }
+
+            i_Vehicle.GetEnergyDetails(out string energyType, out float energyCurrentAmount, out float energyMaxAmount, out float energyCurrentAmountInPercentage);
+            Console.WriteLine(string.Format(@"Energy type: {0}", energyType));
+            if (i_Vehicle.VehicleEnergySource is FuelSource)
+            {
+                Console.WriteLine(string.Format(@"Fuel type: {0}", (i_Vehicle.VehicleEnergySource as FuelSource).FuelType));
+            }
+
+            Console.WriteLine(string.Format(
+@"Amount of energy left: {0}
+Percentage of energy left: {1}%
+Maximum energy capacity: {2}",
+                       energyCurrentAmount,
+                       energyCurrentAmountInPercentage,
+                       energyMaxAmount));
+
+           string vehicleAdditionalInfo= i_Vehicle.ToString();
+           Console.WriteLine(vehicleAdditionalInfo);
+
+            //foreach (string property in vehicleSpecialProperties)
+            //{
+            // Console.WriteLine(property);
+            //}
+
+            Console.WriteLine("--------------------------------------------------------");
         }
     }
 }

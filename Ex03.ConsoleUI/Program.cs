@@ -1,4 +1,12 @@
-﻿namespace Ex03.ConsoleUI
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+//using System.Threading;
+//using Threads;
+
+namespace Ex03.ConsoleUI
 {
     public class Program
     {
@@ -9,7 +17,7 @@
             UIManagement garageManager = new UIManagement();
             garageManager.Run();
 
-           
+            Console.ReadLine();
         }
     }
 }

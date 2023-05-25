@@ -58,15 +58,24 @@ namespace Ex03.GarageLogic
 
         public override void CreateEnergySource(eEnergySourceType i_EnergySourceType, float i_CurrentEnergyInVehicle)
         {
-            if(i_EnergySourceType == eEnergySourceType.Fuel)
+            if (i_EnergySourceType == eEnergySourceType.Fuel)
             {
-                m_FuelSource = new FuelSource(r_FuelType, k_FuelTankCapacityInLiters, i_CurrentEnergyInVehicle);
+                m_EnergySource = new FuelSource(r_FuelType, k_FuelTankCapacityInLiters, i_CurrentEnergyInVehicle);
             }
 
             else
             {
-                m_ElectricSource = new ElectricSource(k_MaxBatteryTimeInHours, i_CurrentEnergyInVehicle);
+                m_EnergySource = new ElectricSource(k_MaxBatteryTimeInHours, i_CurrentEnergyInVehicle);
             }
         }
-    } 
+
+        public override string ToString()
+        {
+            string returnedString = string.Format(@"Car's unique properties:{0}Color: {1}
+Number of doors: {2}
+",Environment.NewLine,CarColor, NumberOfDoors);
+
+            return returnedString;
+        }
+    }
 }

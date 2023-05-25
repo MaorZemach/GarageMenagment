@@ -8,12 +8,11 @@ namespace Ex03.GarageLogic
 {
     public abstract class EnergySource
     {
-        protected float m_AmountOfEnergyLeftInPercentage; // protected?
-        protected readonly float m_MaxAmountOfEnergySource;
+        private float m_AmountOfEnergyLeftInPercentage; // protected?
+        private readonly float m_MaxAmountOfEnergySource;
+        private float m_CurrentAmountOfEnergySource;
 
-        public abstract void RenewAmountOfEnergy();
-        public abstract void RenewAmountOfEnergy(eFuelType i_FuelType, float i_FuelToAddInLiters);
-        public abstract void RenewAmountOfEnergy(float i_TimeToAddInHours);
+        //public abstract void RenewAmountOfEnergy(float i_TimeToAddInHours);
 
         // protected readonly float m_MaxAmountOfEnergySource;
         // protected float m_CurrentAmountOfEnergySource;
@@ -23,6 +22,19 @@ namespace Ex03.GarageLogic
         {
             m_MaxAmountOfEnergySource = i_MaxAmountOfEnergySource;
             setAmountOfEnergyPrecentage(i_MaxAmountOfEnergySource, i_CapacityLeftInEnergySource);
+            m_CurrentAmountOfEnergySource = i_CapacityLeftInEnergySource;
+        }
+
+        public float CurrentAmountOfEnergySource
+        {
+            get
+            {
+                return m_CurrentAmountOfEnergySource;
+            }
+            set
+            {
+                m_CurrentAmountOfEnergySource = value;
+            }
         }
 
         public float AmountOfEnergyLeftInPercentage
@@ -46,11 +58,32 @@ namespace Ex03.GarageLogic
             }
         }
 
+
+        public float EnergyLeftInPercentage
+        {
+            get
+            {
+                return m_AmountOfEnergyLeftInPercentage;
+            }
+        }
+
         public void setAmountOfEnergyPrecentage(float i_MaxAmountOfEnergySource, float i_CapacityLeftInEnergySource)
         {
             m_AmountOfEnergyLeftInPercentage = (i_CapacityLeftInEnergySource / i_MaxAmountOfEnergySource) * 100;
         }
+        public  void RenewAmountOfEnergy(float i_EnergySourceToAdd)
+        {
+            if ((m_CurrentAmountOfEnergySource + i_EnergySourceToAdd) > m_MaxAmountOfEnergySource)
+            {
+                
+                throw new ValueOutOfRangeException("Invalid input. The value after addition is out of range.", 0, m_MaxAmountOfEnergySource);
+            }
+            else
+            {
+                m_CurrentAmountOfEnergySource += i_EnergySourceToAdd;
+            }
 
+        }
         /* public void ChargeOrRefuelVehicle(float i_AmountToCharge)
          {
              if (i_AmountToCharge < 0)

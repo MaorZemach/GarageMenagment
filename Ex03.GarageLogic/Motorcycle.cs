@@ -12,7 +12,7 @@ namespace Ex03.GarageLogic
         internal const float k_WheelMaxAirPressure = 31f;
         private const float k_FuelTankCapacityInLiters = 6.4f;
         private const float k_MaxBatteryTimeInHours = 2.6f;
-       // private readonly eFuelType r_FuelType;
+        // private readonly eFuelType r_FuelType;
         private eLicenseType m_LicenseType;
         private int m_EngineCapacity;
 
@@ -52,13 +52,22 @@ namespace Ex03.GarageLogic
         {
             if (i_EnergySourceType == eEnergySourceType.Fuel)
             {
-                m_FuelSource = new FuelSource(eFuelType.Octan98, k_FuelTankCapacityInLiters, i_CurrentEnergyInVehicle);
+                m_EnergySource = new FuelSource(eFuelType.Octan98, k_FuelTankCapacityInLiters, i_CurrentEnergyInVehicle);
             }
 
             else
             {
-                m_ElectricSource = new ElectricSource(k_MaxBatteryTimeInHours, i_CurrentEnergyInVehicle);
+                m_EnergySource = new ElectricSource(k_MaxBatteryTimeInHours, i_CurrentEnergyInVehicle);
             }
+        }
+
+        public override string ToString()
+        {
+            string returnedString = string.Format(@"Motorcycle's unique properties:{0}License type: {1}
+Engine size: {2}
+",Environment.NewLine, LicenseType, EngineCapacity);
+
+            return returnedString;
         }
     }
 }

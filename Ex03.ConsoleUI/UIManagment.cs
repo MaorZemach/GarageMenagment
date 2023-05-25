@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 using Ex03.GarageLogic;
 
 namespace Ex03.ConsoleUI
@@ -60,6 +61,7 @@ namespace Ex03.ConsoleUI
                     case eMenuOption.DisplayListOfVehiclesLicenseNumbersInGarage:
                         {
                             // displayLicenseNumberListOfVehiclesInGarage();
+                            displayLicenseNumberListOfVehiclesInGarage();
                             break;
                         }
 
@@ -89,7 +91,7 @@ namespace Ex03.ConsoleUI
 
                     case eMenuOption.DisplayVehicleDetails:
                         {
-                            // displayVehicleDetailsByLicenseNumber();
+                            displayVehicleDetailsByLicenseNumber();
                             break;
                         }
 
@@ -166,35 +168,35 @@ namespace Ex03.ConsoleUI
             }*/
 
 
-           /* switch (vehicleType)
-            {
-                case eVehicleType.Car:
-                    {
-                        energySourceType = (eEnergySourceType)UIInputsOutputsMessages.GetEnumOptionFromUser(typeof(eEnergySourceType));
-                        newVehicle = getCarDetailsAndCreateCar(i_VehicleLicenseNumber, energySourceType, currentAmountOfEnergySource, currentWheelAirPressure, vehicleModel);
-                        break;
-                    }
-                case eVehicleType.Motorcycle:
-                    {
-                        energySourceType = (eEnergySourceType)UIInputsOutputsMessages.GetEnumOptionFromUser(typeof(eEnergySourceType));
-                        newVehicle = getMotorcycleDetailsAndCreateMotorcycle(i_VehicleLicenseNumber, energySourceType, currentAmountOfEnergySource, currentWheelAirPressure, vehicleModel);
-                        break;
-                    }
-                case eVehicleType.Truck:
-                    {
-                        energySourceType = eEnergySourceType.Fuel;
-                        newVehicle = getTruckDetailsAndCreateTruck(i_VehicleLicenseNumber, energySourceType, currentAmountOfEnergySource, vehicleModel);
-                        break;
-                    }
-            }*/
+            /* switch (vehicleType)
+             {
+                 case eVehicleType.Car:
+                     {
+                         energySourceType = (eEnergySourceType)UIInputsOutputsMessages.GetEnumOptionFromUser(typeof(eEnergySourceType));
+                         newVehicle = getCarDetailsAndCreateCar(i_VehicleLicenseNumber, energySourceType, currentAmountOfEnergySource, currentWheelAirPressure, vehicleModel);
+                         break;
+                     }
+                 case eVehicleType.Motorcycle:
+                     {
+                         energySourceType = (eEnergySourceType)UIInputsOutputsMessages.GetEnumOptionFromUser(typeof(eEnergySourceType));
+                         newVehicle = getMotorcycleDetailsAndCreateMotorcycle(i_VehicleLicenseNumber, energySourceType, currentAmountOfEnergySource, currentWheelAirPressure, vehicleModel);
+                         break;
+                     }
+                 case eVehicleType.Truck:
+                     {
+                         energySourceType = eEnergySourceType.Fuel;
+                         newVehicle = getTruckDetailsAndCreateTruck(i_VehicleLicenseNumber, energySourceType, currentAmountOfEnergySource, vehicleModel);
+                         break;
+                     }
+             }*/
 
-            if(vehicleType==eVehicleType.Truck)
+            if (vehicleType == eVehicleType.Truck)
             {
                 energySourceType = eEnergySourceType.Fuel;
                 currentAmountOfEnergySource = float.Parse(UIInputsOutputsMessages.getInputFromUser(string.Format("{0}Please enter the current amount of energy in the vehicle: ", Environment.NewLine)));
                 newVehicle = getTruckDetailsAndCreateTruck(i_VehicleLicenseNumber, energySourceType, currentAmountOfEnergySource, vehicleModel);
             }
-            else if(vehicleType==eVehicleType.Motorcycle)
+            else if (vehicleType == eVehicleType.Motorcycle)
             {
                 energySourceType = (eEnergySourceType)UIInputsOutputsMessages.GetEnumOptionFromUser(typeof(eEnergySourceType));
                 currentAmountOfEnergySource = float.Parse(UIInputsOutputsMessages.getInputFromUser(string.Format("{0}Please enter the current amount of energy in the vehicle: ", Environment.NewLine)));
@@ -208,52 +210,52 @@ namespace Ex03.ConsoleUI
             }
 
             // Vehicle newVehicle = Factory.CreateNewVehicle(vehicleType, energySourceType, vehicleModel, i_VehicleLicenseNumber);
-            
-                        while (isValidInput == false)
-                        {
-                            try
-                            {
-                                currentWheelAirPressure = UIInputsOutputsMessages.GetCurrentWheelAirPressure(newVehicle.MaxWheelAirPressure);
-                                isValidInput = true;
-                            }
-                            catch (FormatException formatException)
-                            {
-                                Console.WriteLine(formatException.Message);
-                                isValidInput = false;
-                            }
-                            catch (ValueOutOfRangeException valueOutOfRangeException)
-                            {
-                                Console.WriteLine(valueOutOfRangeException.Message);
-                                isValidInput = false;
-                            }
-                        }
 
-                        newVehicle.ProduceAndAddWheel(UIInputsOutputsMessages.GetWheelManufacture(),newVehicle.MaxWheelAirPressure, currentWheelAirPressure);
-                        UIInputsOutputsMessages.GetOwnerDetails(out ownerName, out ownerPhoneNumber);
-                        newVehicle.SetOwnerDetails(ownerName, ownerPhoneNumber);
-                        //setNewVehicleSpecialProperties(newVehicle);
+            while (isValidInput == false)
+            {
+                try
+                {
+                    currentWheelAirPressure = UIInputsOutputsMessages.GetCurrentWheelAirPressure(newVehicle.MaxWheelAirPressure);
+                    isValidInput = true;
+                }
+                catch (FormatException formatException)
+                {
+                    Console.WriteLine(formatException.Message);
+                    isValidInput = false;
+                }
+                catch (ValueOutOfRangeException valueOutOfRangeException)
+                {
+                    Console.WriteLine(valueOutOfRangeException.Message);
+                    isValidInput = false;
+                }
+            }
 
-                        while (isValidInput == false)
-                        {
-                            try
-                            {
-                               // currentAmountOfEnergySource = UIView.GetCurrentEnergyFromUser(newVehicle.EnergySource.MaxAmountOfEnergySource);
-                                newVehicle.setCurrentAmountOfEnergySource(currentAmountOfEnergySource);
-                                newVehicle.VehicleEnergySource.setAmountOfEnergyPrecentage(newVehicle.VehicleEnergySource.MaxAmountOfEnergySource, currentAmountOfEnergySource);
-                                isValidInput = true;
-                            }
-                            catch (FormatException formatException)
-                            {
-                                Console.WriteLine(formatException.Message);
-                                isValidInput = false;
-                            }
-                            catch (ValueOutOfRangeException valueOutOfRangeException)
-                            {
-                                Console.WriteLine(valueOutOfRangeException.Message);
-                                isValidInput = false;
-                            }
-                        }
-                        
+            newVehicle.ProduceAndAddWheel(UIInputsOutputsMessages.GetWheelManufacturer(), newVehicle.MaxWheelAirPressure, currentWheelAirPressure);
+            UIInputsOutputsMessages.GetOwnerDetails(out ownerName, out ownerPhoneNumber);
+            newVehicle.SetOwnerDetails(ownerName, ownerPhoneNumber);
+            //setNewVehicleSpecialProperties(newVehicle);
+
+            while (isValidInput == false)
+            {
+                try
+                {
+                    // currentAmountOfEnergySource = UIView.GetCurrentEnergyFromUser(newVehicle.EnergySource.MaxAmountOfEnergySource);
+                    newVehicle.setCurrentAmountOfEnergySource(currentAmountOfEnergySource);
+                    newVehicle.VehicleEnergySource.setAmountOfEnergyPrecentage(newVehicle.VehicleEnergySource.MaxAmountOfEnergySource, currentAmountOfEnergySource);
+                    isValidInput = true;
+                }
+                catch (FormatException formatException)
+                {
+                    Console.WriteLine(formatException.Message);
+                    isValidInput = false;
+                }
+                catch (ValueOutOfRangeException valueOutOfRangeException)
+                {
+                    Console.WriteLine(valueOutOfRangeException.Message);
+                    isValidInput = false;
+                }
+            }
+
             return newVehicle;
         }
 
@@ -347,16 +349,16 @@ namespace Ex03.ConsoleUI
                             if (i_energySourceType == typeof(FuelSource))
                             {
                                 CapacityOfEnergySourceToAdd = UIInputsOutputsMessages.GetAmountOfFuelToAdd();
-                                vehicle.VehicleFuelSource.RenewAmountOfEnergy(vehicle.VehicleFuelSource.FuelType, CapacityOfEnergySourceToAdd);
-                                vehicle.VehicleEnergySource.setAmountOfEnergyPrecentage(vehicle.VehicleFuelSource.MaxFuelCapacity, vehicle.VehicleFuelSource.FuelLeftInLiters);
+                                vehicle.VehicleEnergySource.RenewAmountOfEnergy(CapacityOfEnergySourceToAdd); 
+                                vehicle.VehicleEnergySource.setAmountOfEnergyPrecentage(vehicle.VehicleEnergySource.MaxAmountOfEnergySource, vehicle.VehicleEnergySource.CurrentAmountOfEnergySource);
 
                             }
 
                             else
                             {
                                 CapacityOfEnergySourceToAdd = UIInputsOutputsMessages.GetNumOfMinutesToCharge();
-                                vehicle.VehicleElectricSource.RenewAmountOfEnergy(CapacityOfEnergySourceToAdd);
-                                vehicle.VehicleEnergySource.setAmountOfEnergyPrecentage(vehicle.VehicleElectricSource.MaxEletricCapacity, vehicle.VehicleElectricSource.TimeLeftInHours);
+                                vehicle.VehicleEnergySource.RenewAmountOfEnergy(CapacityOfEnergySourceToAdd);
+                                vehicle.VehicleEnergySource.setAmountOfEnergyPrecentage(vehicle.VehicleEnergySource.MaxAmountOfEnergySource, vehicle.VehicleEnergySource.CurrentAmountOfEnergySource);
                             }
 
                             //vehicle.VehicleEnergySource.ChargeOrRefuelVehicle(amountToAddToEnergySource);
@@ -383,9 +385,9 @@ namespace Ex03.ConsoleUI
             int engineCapacity = 0;
             bool isEnginCapacityValid = false;
             string motorcycleUniqProperties;
-           // string motorcycleUniqProperties = UIInputsOutputsMessages.getInputFromUser(string.Format("{0}Please choose Motorcycle License: (0)A1,(1)A2,(2)A3", Environment.NewLine));
+            // string motorcycleUniqProperties = UIInputsOutputsMessages.getInputFromUser(string.Format("{0}Please choose Motorcycle License: (0)A1,(1)A2,(2)A3", Environment.NewLine));
             eLicenseType licenseType = (eLicenseType)UIInputsOutputsMessages.GetEnumOptionFromUser(typeof(eLicenseType));
-           // string motorcycleUniqProperties = UIInputsOutputsMessages.getInputFromUser(string.Format("{0}Please insert the capacity of the Motorcycle engine: ", Environment.NewLine));
+            // string motorcycleUniqProperties = UIInputsOutputsMessages.getInputFromUser(string.Format("{0}Please insert the capacity of the Motorcycle engine: ", Environment.NewLine));
             while (isEnginCapacityValid == false)
             {
                 motorcycleUniqProperties = UIInputsOutputsMessages.getInputFromUser(string.Format("{0}Please insert the capacity of the Motorcycle engine: ", Environment.NewLine));
@@ -404,7 +406,7 @@ namespace Ex03.ConsoleUI
             float cargoCapacity = 0;
             while (n_IsValidInput == false)
             {
-                string isTransportHazardMaterialsString = UIInputsOutputsMessages.getInputFromUser(string.Format("{0}If the truck transoprt Hazard materials press: 'y' , else press 'n'", Environment.NewLine));
+                string isTransportHazardMaterialsString = UIInputsOutputsMessages.getInputFromUser(string.Format("{0}If the truck able to transoprt hazard materials press: 'y' , else press 'n': ", Environment.NewLine));
                 if (string.Compare(isTransportHazardMaterialsString, "y") == 0)
                 {
                     v_isTransportHazardMaterials = true;
@@ -435,12 +437,81 @@ namespace Ex03.ConsoleUI
         {
             //string carColorInput = UIInputsOutputsMessages.getInputFromUser(string.Format("{0}Please enter the car color: (0)White,(1)Black,(2)Yellow,(3)Red: ", Environment.NewLine));
             eCarColors chosenCarColor = (eCarColors)UIInputsOutputsMessages.GetEnumOptionFromUser(typeof(eCarColors));
-           // string numberOfDoorsInput = UIInputsOutputsMessages.getInputFromUser(string.Format("{0}Please enter the number of doors in the car (between 2 to 5):", Environment.NewLine));
+            // string numberOfDoorsInput = UIInputsOutputsMessages.getInputFromUser(string.Format("{0}Please enter the number of doors in the car (between 2 to 5):", Environment.NewLine));
             eNumberOfDoors numberOfCarDoors = (eNumberOfDoors)UIInputsOutputsMessages.GetEnumOptionFromUser(typeof(eNumberOfDoors));
 
             Vehicle Car = Garage.ProduceCar(i_EnergySourceType, i_AmountOfEnergySource, i_ModelName, i_TruckLicense, numberOfCarDoors, chosenCarColor);
 
             return Car;
         }
+
+        private void displayLicenseNumberListOfVehiclesInGarage()
+        {
+            string inputOptionFromUser = UIInputsOutputsMessages.GetUserInputStatusOptionChoiceForDisplayingListOfVehiclesLicenseNumbers();
+            Dictionary<string, Vehicle> VehiclesInGarage = m_Garage.VehiclesList;
+            if(int.Parse(inputOptionFromUser)>=1 && int.Parse(inputOptionFromUser)<=4)
+            {
+                if (inputOptionFromUser != "4")
+                {//print lis tby status
+                    eVehicleStatusInGarage VehicleStatus = (eVehicleStatusInGarage)int.Parse(inputOptionFromUser);
+                    if (m_Garage.IsVehicleInGarageListInChosenStatusIsEmpty(VehicleStatus))
+                    {
+                        UIInputsOutputsMessages.PrintThereIsNoVehiclesInThisStatus();
+                    }
+
+                    else
+                    {
+                        if (m_Garage.IsVehicleInGarageListEmpty())
+                        {
+                            UIInputsOutputsMessages.PrintThereIsNoVehiclesInTheGarage();
+                        }
+
+                        else
+                        {
+                            foreach (KeyValuePair<string, Vehicle> vehicle in VehiclesInGarage)
+                            {
+                                if (vehicle.Value.VehicleStatusInGarage.Equals(VehicleStatus))
+                                {
+                                    UIInputsOutputsMessages.PrintVehicleLicenseNumber(vehicle.Key);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                else
+                {//print whole list
+                    foreach (KeyValuePair<string, Vehicle> vehicle in VehiclesInGarage)
+                    {
+                        UIInputsOutputsMessages.PrintVehicleLicenseNumber(vehicle.Key);
+                    }
+                }
+            }
+
+            else
+            {
+                throw new ValueOutOfRangeException("Input must be between 1 to 4", 1, 4);
+            }
+            //need to check if input valid first (1 - 4) ?   
+            UIInputsOutputsMessages.PressAnyKeyToContinue();
+        }
+
+        private void displayVehicleDetailsByLicenseNumber()
+        {
+            string vehicleLicenseNumber = UIInputsOutputsMessages.GetVehicleLicenseNumberFromUser();
+
+            if (m_Garage.IsVehicleExistsInGarage(vehicleLicenseNumber) == false)
+            {
+                UIInputsOutputsMessages.PrintThereIsNoVehiclesInTheGarage();
+            }
+            else
+            {
+                Vehicle vehicle = m_Garage.GetVehicleInGarage(vehicleLicenseNumber);
+                UIInputsOutputsMessages.DisplayVehicleDetails(vehicle);
+            }
+
+            UIInputsOutputsMessages.PressAnyKeyToContinue();
+        }
+
     }
 }

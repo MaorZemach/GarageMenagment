@@ -11,13 +11,13 @@ namespace Ex03.GarageLogic
         /////////////////////  // $G$ DSN-999 (-2) The "fuel type" field should be readonly member of class FuelEnergyProvider.
         private readonly eFuelType r_FuelType;//add eFuelType enum
         private readonly float r_MaxFuelCapacity;//private?
-        private float m_FuelLeftInLiters;//private?
+      //  private float m_FuelLeftInLiters;//private?
 
         public FuelSource(eFuelType i_FuelType, float i_MaxFuelCapacity, float i_FuelLeftInLiters) : base(i_MaxFuelCapacity, i_FuelLeftInLiters)
         {
             r_FuelType = i_FuelType;
             r_MaxFuelCapacity = i_MaxFuelCapacity;
-            m_FuelLeftInLiters = i_FuelLeftInLiters;
+          //  m_FuelLeftInLiters = i_FuelLeftInLiters;
         }
 
         public float MaxFuelCapacity
@@ -29,7 +29,7 @@ namespace Ex03.GarageLogic
             //no set cus readonly
         }
 
-        public float FuelLeftInLiters
+      /*  public float FuelLeftInLiters
         {
             get
             {
@@ -39,7 +39,7 @@ namespace Ex03.GarageLogic
             {
                 m_FuelLeftInLiters = value;
             }
-        }
+        }*/
 
         public eFuelType FuelType
         {
@@ -54,36 +54,17 @@ namespace Ex03.GarageLogic
               }*/
         }
 
-        public override void RenewAmountOfEnergy(eFuelType i_FuelType, float i_FuelToAddInLiters)
-        {
-           if(i_FuelType==this.FuelType)
-           {
-                if((m_FuelLeftInLiters + i_FuelToAddInLiters)>MaxFuelCapacity)
-                {
-                    //throw ValueOutOfRangeException("The amount of liters after adding the amount of fuel you wanted is higher from the maximum", 0, r_MaxFuelCapacity);
-                }
-                else
-                {
-                    m_FuelLeftInLiters += i_FuelToAddInLiters;
-                }
-           }
-
-           else
-            {
-                //throw exeption "Fuel type not the same"
-            }
-
-        }
+       
 
         //CHECK ABOUT THE EXCEPTIONS!
-        public override void RenewAmountOfEnergy(float i_FuelToAddInLiters)//check if neccesery and place in the right class (maybe Exceptions class)
+      /*  public override void RenewAmountOfEnergy(float i_FuelToAddInLiters)//check if neccesery and place in the right class (maybe Exceptions class)
         {
             throw new NotImplementedException();
-        }
+        *}*/
 
-        public override void RenewAmountOfEnergy()//check if neccesery and place in the right class (maybe Exceptions class)
-        {
-            throw new NotImplementedException();
-        }
+       // public override void RenewAmountOfEnergy()//check if neccesery and place in the right class (maybe Exceptions class)
+        //{
+        ///    throw new NotImplementedException();
+       // }
     }
 }

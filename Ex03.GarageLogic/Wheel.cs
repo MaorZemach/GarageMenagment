@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ex03.GarageLogic
 {//test
-    class Wheel
+    public class Wheel
     {
         private readonly string r_ManufacturerName;
         private float m_CurrentAirPressure;
@@ -50,7 +50,7 @@ namespace Ex03.GarageLogic
         public void InflateWheelAirPressure(float i_AirToAdd)
         {
             //check if not past the maximum
-            if((m_CurrentAirPressure+i_AirToAdd) <= Car.k_WheelMaxAirPressure)
+            if ((m_CurrentAirPressure + i_AirToAdd) <= Car.k_WheelMaxAirPressure)
             {
                 m_CurrentAirPressure += i_AirToAdd;
             }

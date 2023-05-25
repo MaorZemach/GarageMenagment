@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Ex03.GarageLogic
 {
-   public enum eEnergySourceType
-   {
+    public enum eEnergySourceType
+    {
         Fuel,
         Electric
-   }
+    }
 }
